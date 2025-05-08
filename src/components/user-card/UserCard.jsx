@@ -3,16 +3,17 @@ import {USERS} from "../../constants/users"
 import Button from "../button/Button"
 
 const UserCard = ({userId, title, name, username, email, profileImage}) => {
-    const [user, setUser] = useState(0)
+    const [user, setUser] = useState(0);
+    const currentUser = USERS[user];
     return <>
-    <div>
-        <img src={profileImage}/>
-        <h3>Name: {name}</h3>
-        <p>Username: {username}</p>
-        <p>Email: {email}</p>
-    </div>
-    <Button action={goback}>Previous</Button>
-    <Button action={goFoward}>Next</Button>
+     <div>
+        <img src={currentUser.profileImage} alt={`${currentUser.name} profile`} />
+        <h3>Name: {currentUser.name}</h3>
+        <p>Username: {currentUser.username}</p>
+        <p>Email: {currentUser.email}</p>
+      </div>
+      <Button action={() => goback(user, setUser)} disabled={user === 0}>Previous</Button>
+      <Button action={() => goFoward(user, setUser)} disabled={user === USERS.length - 1}>Next</Button>
     </>
 }
 const goback = (user, setUser) => {
@@ -22,4 +23,6 @@ const goback = (user, setUser) => {
 const goFoward = (user, setUser) => {
     setUser(user + 1)
 }
+
+  
 export default UserCard
